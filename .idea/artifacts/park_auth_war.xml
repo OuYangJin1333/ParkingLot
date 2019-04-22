@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="park-auth:war">
+    <output-path>$PROJECT_DIR$/park-auth/target</output-path>
+    <root id="archive" name="park-auth-0.0.1-SNAPSHOT.war">
+      <element id="artifact" artifact-name="park-auth:war exploded" />
+    </root>
+  </artifact>
+</component>
