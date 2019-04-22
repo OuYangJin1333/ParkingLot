@@ -6,6 +6,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface PilInfoMapper {
+    List<PilInfo> selectAllByNow();
+
     int countByExample(PilInfoExample example);
 
     int deleteByExample(PilInfoExample example);

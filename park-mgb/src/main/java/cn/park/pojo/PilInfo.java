@@ -47,6 +47,30 @@ public class PilInfo implements Serializable {
      */
     private String type;
 
+    /**
+     * 城市名
+     */
+    private String cityName;
+    /**
+     * 区域名
+     */
+    private String areaName;
+    /**
+     * 总车位
+     */
+    private Integer oldCount;
+    /**
+     * 实时车位
+     */
+    private Integer newCount;
+    /**
+     * 该停车场对应小车收费
+     */
+    private PilInfoSmallcharge pilInfoSmallcharge;
+    /**
+     * 该停车场对应大车收费
+     */
+    private PilInfoBigcharge pilInfoBigcharge;
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
@@ -103,6 +127,54 @@ public class PilInfo implements Serializable {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getCityName() {
+        return cityName;
+    }
+
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
+    }
+
+    public String getAreaName() {
+        return areaName;
+    }
+
+    public void setAreaName(String areaName) {
+        this.areaName = areaName;
+    }
+
+    public Integer getOldCount() {
+        return oldCount;
+    }
+
+    public void setOldCount(Integer oldCount) {
+        this.oldCount = oldCount;
+    }
+
+    public Integer getNewCount() {
+        return newCount;
+    }
+
+    public void setNewCount(Integer newCount) {
+        this.newCount = newCount;
+    }
+
+    public PilInfoSmallcharge getPilInfoSmallcharge() {
+        return pilInfoSmallcharge;
+    }
+
+    public void setPilInfoSmallcharge(PilInfoSmallcharge pilInfoSmallcharge) {
+        this.pilInfoSmallcharge = pilInfoSmallcharge;
+    }
+
+    public PilInfoBigcharge getPilInfoBigcharge() {
+        return pilInfoBigcharge;
+    }
+
+    public void setPilInfoBigcharge(PilInfoBigcharge pilInfoBigcharge) {
+        this.pilInfoBigcharge = pilInfoBigcharge;
     }
 
     @Override

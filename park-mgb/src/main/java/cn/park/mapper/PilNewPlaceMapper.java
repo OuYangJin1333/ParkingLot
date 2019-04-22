@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface PilNewPlaceMapper {
+    int addPilNewPlaceByPidList(Integer pid);
     int countByExample(PilNewPlaceExample example);
 
     int deleteByExample(PilNewPlaceExample example);
