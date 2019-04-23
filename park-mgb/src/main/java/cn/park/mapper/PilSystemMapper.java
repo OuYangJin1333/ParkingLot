@@ -33,4 +33,9 @@ public interface PilSystemMapper {
     int updateByPrimaryKeyWithBLOBs(PilSystem record);
 
     int updateByPrimaryKey(PilSystem record);
+
+    List<PilSystem> pilSystemslist(@Param("tid")Integer tid);
+
+
+    PilSystem gepilSystem(@Param("id")Integer id);
 }
