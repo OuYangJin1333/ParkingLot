@@ -18,7 +18,7 @@ public class PilSystemWarn implements Serializable {
      *
      * @mbggenerated
      */
-    private Date createTime;
+    private Date create_time;
 
     /**
      * 内容
@@ -46,11 +46,11 @@ public class PilSystemWarn implements Serializable {
     }
 
     public Date getCreateTime() {
-        return createTime;
+        return create_time;
     }
 
     public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+        this.create_time = createTime;
     }
 
     public String getContent() {
@@ -69,7 +69,7 @@ public class PilSystemWarn implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", title=").append(title);
-        sb.append(", createTime=").append(createTime);
+        sb.append(", createTime=").append(create_time);
         sb.append(", content=").append(content);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");

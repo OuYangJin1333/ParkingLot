@@ -248,4 +248,16 @@
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="pilSystemslist"  resultType="cn.park.pojo.PilSystem">
+    SELECT * FROM `pil_system` where 1=1
+      <if test="tid!=0">
+        and tid=#{tid}
+      </if>
+     ORDER BY `create_time` DESC
+  </select>
+
+  <select id="gepilSystem" resultType="cn.park.pojo.PilSystem">
+     SELECT * FROM `pil_system` WHERE id =#{id}
+  </select>
 </mapper>

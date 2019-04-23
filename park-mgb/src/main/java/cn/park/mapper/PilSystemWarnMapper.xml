@@ -231,4 +231,10 @@
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="AllPilSystemWarn" resultType="cn.park.pojo.PilSystemWarn">
+    SELECT * from pil_system_warn
+  </select>
+  <select id="pilSystemWarn" resultType="cn.park.pojo.PilSystemWarn" parameterType="java.lang.Integer">
+    SELECT * FROM `pil_system_warn` WHERE id=#{id}
+  </select>
 </mapper>

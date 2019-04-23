@@ -33,4 +33,8 @@ public interface PilSystemWarnMapper {
     int updateByPrimaryKeyWithBLOBs(PilSystemWarn record);
 
     int updateByPrimaryKey(PilSystemWarn record);
+
+    List<PilSystemWarn> AllPilSystemWarn();
+
+    PilSystemWarn pilSystemWarn(@Param("id") Integer id);
 }
