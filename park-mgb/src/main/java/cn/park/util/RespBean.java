@@ -47,6 +47,10 @@ public class RespBean {
         result.put("total", pageInfo.getTotal());
         result.put("pageNum", pageInfo.getPageNum());
         result.put("list", pageInfo.getList());
+        System.out.println(pageInfo.getPages());
+        System.out.println(pageInfo.getPageSize());
+        System.out.println(pageInfo.getTotal());
+        System.out.println(pageInfo.getPageNum());
         this.status = SUCCESS;
         this.msg = "操作成功";
         this.obj = result;
