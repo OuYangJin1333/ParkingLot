@@ -1,5 +1,6 @@
 package cn.park.util;
 
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 
 import java.util.HashMap;

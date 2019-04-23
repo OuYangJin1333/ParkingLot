@@ -1,15 +1,21 @@
 package cn.park.service.impl;
 
-import cn.park.mapper.PilInfoMapper;
-import cn.park.mapper.PilNewPlaceMapper;
-import cn.park.pojo.PilInfo;
-import cn.park.pojo.PilInfoExample;
+import cn.park.mapper.*;
+import cn.park.pojo.*;
 import cn.park.service.PilInfoService;
+import cn.park.service.RedisService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.CollectionType;
 import com.github.pagehelper.PageHelper;
+import jdk.internal.org.objectweb.asm.TypeReference;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,9 +24,17 @@ import java.util.List;
 @Service
 public class PilInfoServiceImpl implements PilInfoService{
     @Autowired
-    PilInfoMapper PilInfoMapper;
+    PilInfoMapper pilInfoMapper;
     @Autowired
     PilNewPlaceMapper pilNewPlaceMapper;
+    @Autowired
+    RedisService redisService;
+    @Autowired
+    PilStopInfoMapper pilStopInfoMapper;
+    @Autowired
+    PilVipUserMapper pilVipUserMapper;
+    @Autowired
+    PilStopInfoChargeMapper pilStopInfoChargeMapper;
 
     /**
      * 实时的车位信息列表（实时车位数判断，调用存储过程添加实时车位数）
@@ -28,18 +42,77 @@ public class PilInfoServiceImpl implements PilInfoService{
      */
     @Override
     public List<PilInfo> findAllPilInfo(Integer pageIndex,Integer pageSize) {
-        //获取所以停车场信息
-        List<PilInfo> pilInfoList = PilInfoMapper.selectByExample(null);
-        //遍历停车场信息列表并且将id都添加到集合当中
-        List<Integer> pids = new ArrayList<>();
+        ObjectMapper om = new ObjectMapper();
+        String pilInfoJson = redisService.get("pilInfoList");
+        List<PilInfo> pilInfoList = null;
+        CollectionType listType = om.getTypeFactory().constructCollectionType(ArrayList.class, PilInfo.class);
+        //设置分页
+        PageHelper.startPage(pageIndex, pageSize);
+        pilInfoList = pilInfoMapper.selectAllByNow();
+        return pilInfoList;
+    }
+
+    /**
+     * 每个一个小时更新实时停车位
+     */
+    @Scheduled(cron = "0 0/1 * * * ?")
+    public void flushCount(){
+        //jackson
+        ObjectMapper om = new ObjectMapper();
+        List<PilInfo> pilInfoList = null;
+        CollectionType listType = om.getTypeFactory().constructCollectionType(ArrayList.class, PilInfo.class);
+        try {
+            pilInfoList = om.readValue(redisService.get("pilInfoList"),listType);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         for (PilInfo pilInfo : pilInfoList) {
             //根据id调用添加的存储过程
             pilNewPlaceMapper.addPilNewPlaceByPidList(pilInfo.getId());
         }
-        //设置分页
-        PageHelper.startPage(pageIndex, pageSize);
-        //查询实时的停车场信息列表(包含实时车位)
-        pilInfoList = PilInfoMapper.selectAllByNow();
-        return pilInfoList;
+        pilInfoList = pilInfoMapper.selectAllByNow();
+        try {
+            redisService.set("pilInfoList", om.writeValueAsString(pilInfoList));
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @Scheduled(cron = "0 0/1 * * * ?")
+    public void addStopInfo(){
+        List<PilVipUser> pilVipUsers = pilVipUserMapper.selectByExample(null);
+        PilStopInfo pilStopInfo = new PilStopInfo();
+        List<Integer> num = new ArrayList<>();
+        for (int i=1;i<=7;i++){
+            boolean flag = false;
+            List<PilInfo> pilInfoList = pilInfoMapper.selectAllByNow();
+            if(pilInfoList.get(i-1).getNewCount()==0){
+                System.out.println(pilInfoList.get(i+1).getName()+"停车场库存已满");
+                continue;
+            }
+            pilStopInfo.setPid(i);
+            pilStopInfo.setBeginTime(new Date());
+            long currentTime = System.currentTimeMillis() + 60 * 60 * 1000;
+            Date date = new Date(currentTime);
+            pilStopInfo.setEndTime(date);
+            pilStopInfo.setIsvip(1);
+            int random = (int)(Math.random()*pilVipUsers.size());
+            for (Integer integer : num) {
+                if(random==random)
+                    flag = true;
+            }
+            if(!flag) {
+                pilStopInfo.setVid(pilVipUsers.get(random).getVid());
+                pilStopInfo.setCartype("小车");
+                pilStopInfoMapper.insert(pilStopInfo);
+                PilStopInfoCharge pilStopInfoCharge = new PilStopInfoCharge();
+                pilStopInfoCharge.setSiid(pilStopInfo.getId());
+                pilStopInfoCharge.setPrice(5d);
+                pilStopInfoCharge.setPaytype("App支付");
+                pilStopInfoChargeMapper.insert(pilStopInfoCharge);
+            }
+        }
+
     }
 }

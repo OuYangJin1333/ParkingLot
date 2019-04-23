@@ -193,4 +193,7 @@
       isvip = #{isvip,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="AllpilSystemType" resultType="cn.park.pojo.PilSystemType">
+    SELECT * FROM `pil_system_type` where id=#{id}
+  </select>
 </mapper>

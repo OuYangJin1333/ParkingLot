@@ -27,4 +27,6 @@ public interface PilSystemTypeMapper {
     int updateByPrimaryKeySelective(PilSystemType record);
 
     int updateByPrimaryKey(PilSystemType record);
+
+     PilSystemType AllpilSystemType(@Param("id")Integer id);
 }
