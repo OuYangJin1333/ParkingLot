@@ -13,11 +13,11 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="park-admin" target="1.8" />
-      <module name="park-auth" target="1.8" />
-      <module name="park-mgb" target="1.8" />
-      <module name="park-search" target="1.8" />
-      <module name="ParkingLot" target="1.8" />
+      <module name="park-admin" target="1.7" />
+      <module name="park-auth" target="1.7" />
+      <module name="park-mgb" target="1.7" />
+      <module name="park-search" target="1.7" />
+      <module name="ParkingLot" target="1.7" />
     </bytecodeTargetLevel>
   </component>
 </project>
