@@ -175,13 +175,17 @@
     </trim>
   </insert>
   <select id="selectAllByNow" resultMap="BaseResultMap">
-    SELECT pil_info.*,pil_city.`name` cityName,pil_area.`name` areaName,pil_od_place.`count` oldCount,pil_new_place.`count` newCount,
+      SELECT pil_info.*,pil_city.`name` cityName,pil_area.`name` areaName,pil_od_place.`count` oldCount,pil_new_place.`count` newCount,
   pil_info_smallcharge.`halfhour` s_halfhour,pil_info_smallcharge.`ahour` s_ahour,pil_info_smallcharge.`moreone` s_moreone,pil_info_smallcharge.`max` s_max,
-  pil_info_bigcharge.`halfhour` b_halfhour,pil_info_bigcharge.`ahour` b_ahour,pil_info_bigcharge.`moreone` b_moreone,pil_info_bigcharge.`max` b_max
+  pil_info_bigcharge.`halfhour` b_halfhour,pil_info_bigcharge.`ahour` b_ahour,pil_info_bigcharge.`moreone` b_moreone,pil_info_bigcharge.`max` b_max,
+  pil_new_place.`begin_time`
   FROM pil_info,pil_area,pil_city,pil_od_place,pil_new_place,pil_info_smallcharge,pil_info_bigcharge
+  ,(SELECT MAX(id) as npid FROM pil_new_place  GROUP BY pid ) np
   WHERE pil_info.`aid`=pil_area.`id` AND pil_area.`cid`=pil_city.`id` AND pil_od_place.`pid`=pil_info.`id`
   AND pil_new_place.`pid`=pil_info.`id` AND NOW() BETWEEN pil_new_place.`begin_time` AND pil_new_place.`end_time`
   AND pil_info_smallcharge.`id`=pil_info.`sid` AND pil_info_bigcharge.`id`=pil_info.`bid`
+  and np.npid = pil_new_place.`id`
+  group by id
   ORDER BY id
   </select>
   <select id="countByExample" parameterType="cn.park.pojo.PilInfoExample" resultType="java.lang.Integer">
