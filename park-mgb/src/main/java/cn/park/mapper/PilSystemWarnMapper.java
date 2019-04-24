@@ -37,4 +37,6 @@ public interface PilSystemWarnMapper {
     List<PilSystemWarn> AllPilSystemWarn();
 
     PilSystemWarn pilSystemWarn(@Param("id") Integer id);
+
+    List<PilSystemWarn> AllPilSystemWarnfy(@Param("title")String title);
 }

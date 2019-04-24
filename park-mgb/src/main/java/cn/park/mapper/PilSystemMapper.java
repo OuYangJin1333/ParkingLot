@@ -36,6 +36,7 @@ public interface PilSystemMapper {
 
     List<PilSystem> pilSystemslist(@Param("tid")Integer tid);
 
-
     PilSystem gepilSystem(@Param("id")Integer id);
+
+    List<PilSystem> fenyechaxun(@Param("tid") Integer tid,@Param("title")String title);
 }
