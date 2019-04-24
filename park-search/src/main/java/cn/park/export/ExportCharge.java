@@ -1,16 +1,15 @@
 package cn.park.export;
 
 import cn.park.pojo.Charge;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.apache.poi.hpsf.DocumentSummaryInformation;
 import org.apache.poi.hpsf.SummaryInformation;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.IndexedColors;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
@@ -26,8 +25,7 @@ public class ExportCharge {
     public static ResponseEntity<byte[]> exportExcel(List<Charge> charges) {
         HttpHeaders headers = null;
         ByteArrayOutputStream baos = null;
-        try {
-            //1.创建Excel文档
+        try {//1.创建Excel文档
             HSSFWorkbook workbook = new HSSFWorkbook();
             //2.创建文档摘要
             workbook.createInformationProperties();
