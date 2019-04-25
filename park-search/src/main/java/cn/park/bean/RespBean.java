@@ -1,15 +1,9 @@
-package cn.park.util;
+package cn.park.bean;
 
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageInfo;
+import org.springframework.data.domain.Page;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
-/**
- * 响应信息
- */
 
 public class RespBean {
     //操作成功
@@ -37,21 +31,16 @@ public class RespBean {
 
     /**
      * 分页数据
-     * @param data
+     * @param pageInfo
      * @return
      */
-    public RespBean pageSuccess(List data){
-        PageInfo pageInfo = new PageInfo(data);
+    public RespBean pageSuccess(Page pageInfo){
         Map<String, Object> result = new HashMap<>();
-        result.put("pageSize", pageInfo.getPageSize());
-        result.put("totalPage", pageInfo.getPages());
-        result.put("total", pageInfo.getTotal());
-        result.put("pageNum", pageInfo.getPageNum());
-        result.put("list", pageInfo.getList());
-        System.out.println(pageInfo.getPages());
-        System.out.println(pageInfo.getPageSize());
-        System.out.println(pageInfo.getTotal());
-        System.out.println(pageInfo.getPageNum());
+        result.put("pageSize", pageInfo.getSize());
+        result.put("totalPage", pageInfo.getTotalPages());
+        result.put("total", pageInfo.getTotalElements());
+        result.put("pageNum", pageInfo.getNumber());
+        result.put("list", pageInfo.getContent());
         this.status = SUCCESS;
         this.msg = "操作成功";
         this.obj = result;
