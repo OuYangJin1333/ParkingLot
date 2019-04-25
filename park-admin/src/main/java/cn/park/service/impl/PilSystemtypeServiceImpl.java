@@ -5,9 +5,11 @@ import cn.park.pojo.PilSystemType;
 import cn.park.service.PilSystemtypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 @Service
+@Transactional
 public class PilSystemtypeServiceImpl implements PilSystemtypeService {
 
     @Autowired

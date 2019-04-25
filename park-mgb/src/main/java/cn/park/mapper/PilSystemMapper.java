@@ -3,6 +3,8 @@ package cn.park.mapper;
 import cn.park.pojo.PilSystem;
 import cn.park.pojo.PilSystemExample;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface PilSystemMapper {
@@ -38,4 +40,8 @@ public interface PilSystemMapper {
 
 
     PilSystem gepilSystem(@Param("id")Integer id);
+
+    List<PilSystem> pilSystemsListByParamAndAll(Map param);
+
+    int updateStatusById(Integer id);
 }

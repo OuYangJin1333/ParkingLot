@@ -127,9 +127,9 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into pil_system (title, tid, create_time, 
-      content)
+      content,status,aid)
     values (#{title,jdbcType=VARCHAR}, #{tid,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{content,jdbcType=LONGVARCHAR})
+      #{content,jdbcType=LONGVARCHAR},#{status,jdbcType=LONGVARCHAR},#{aid,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="cn.park.pojo.PilSystem">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -260,4 +260,29 @@
   <select id="gepilSystem" resultType="cn.park.pojo.PilSystem">
      SELECT * FROM `pil_system` WHERE id =#{id}
   </select>
+
+  <select id="pilSystemsListByParamAndAll" resultType="cn.park.pojo.PilSystem">
+    select pil_system.*,pil_admin.username aUserName from pil_system,pil_admin where pil_system.aid = pil_admin.id
+    <if test="id!=null and id!=''">
+      and pil_system.id = #{id}
+    </if>
+    <if test="title!=null and title!=''">
+      and title like concat('%',#{title},'%')
+    </if>
+    <if test="publisher!=null and publisher!=''">
+      and pil_admin.username = #{publisher}
+    </if>
+    <if test="status!=null and status!=''">
+      and pil_system.status = #{status}
+    </if>
+    <if test="beginTime!=null and beginTime!=''">
+      and pil_system.create_time &gt; #{beginTime}
+    </if>
+    <if test="endTime!=null and endTime!=''">
+      and pil_system.create_time &lt; #{endTime}
+    </if>
+  </select>
+  <update id="updateStatusById">
+    update pil_system set status = '已发布' where id = #{id}
+  </update>
 </mapper>
