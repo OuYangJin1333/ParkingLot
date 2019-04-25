@@ -23,4 +23,9 @@ public class PilSystemServiceImpl implements PilSystemService{
     public PilSystem pilSystem(Integer id) {
         return pilSystemMapper.gepilSystem(id);
     }
+
+    @Override
+    public List<PilSystem> fenyepilSystem(Integer tid, String title) {
+        return pilSystemMapper.fenyechaxun(tid,title);
+    }
 }

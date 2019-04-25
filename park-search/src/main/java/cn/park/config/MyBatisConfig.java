@@ -12,4 +12,5 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 @MapperScan({"cn.park.mapper"})
 public class MyBatisConfig {
+
 }

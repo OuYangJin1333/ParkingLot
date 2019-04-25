@@ -24,4 +24,8 @@ public class PilSystemWarnServiceImpl implements PilSystemWarnService {
     public PilSystemWarn pilSystemWarn(Integer id) {
         return pilSystemWarnMapper.pilSystemWarn(id);
     }
+    @Override
+    public List<PilSystemWarn> AllpilSystemWarnfy(String title) {
+        return pilSystemWarnMapper.AllPilSystemWarnfy(title);
+    }
 }

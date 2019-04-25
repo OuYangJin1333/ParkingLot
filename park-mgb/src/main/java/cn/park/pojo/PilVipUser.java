@@ -1,9 +1,13 @@
 package cn.park.pojo;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.Document;
+
 import java.io.Serializable;
 import java.util.Date;
 
 public class PilVipUser implements Serializable {
+    @Id
     private Integer id;
 
     /**
