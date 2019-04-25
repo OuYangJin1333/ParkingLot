@@ -12,6 +12,7 @@ import jdk.internal.org.objectweb.asm.TypeReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ import java.util.List;
  * 停车场信息
  */
 @Service
+@Transactional
 public class PilInfoServiceImpl implements PilInfoService{
     @Autowired
     PilInfoMapper pilInfoMapper;

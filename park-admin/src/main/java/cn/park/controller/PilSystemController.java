@@ -29,6 +29,7 @@ public class PilSystemController {
     PilSystemService pilSystemService;
     @Autowired
     PilSystemtypeService pilSystemtypeService;
+
     @GetMapping("/pilSystemlist")
     @ApiOperation(value = "获取系统公告信息")
     public List AllPilSystem(Integer id) {

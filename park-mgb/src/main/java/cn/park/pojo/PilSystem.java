@@ -34,6 +34,19 @@ public class PilSystem implements Serializable {
      */
     private String content;
 
+    /**
+     * 发布状态
+     */
+    private String status;
+    /**
+     * 发布人
+     */
+    private Integer aid;
+    /**
+     * 发布人姓名
+     */
+    private String aUserName;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
@@ -74,6 +87,30 @@ public class PilSystem implements Serializable {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Integer getAid() {
+        return aid;
+    }
+
+    public void setAid(Integer aid) {
+        this.aid = aid;
+    }
+
+    public String getaUserName() {
+        return aUserName;
+    }
+
+    public void setaUserName(String aUserName) {
+        this.aUserName = aUserName;
     }
 
     @Override
