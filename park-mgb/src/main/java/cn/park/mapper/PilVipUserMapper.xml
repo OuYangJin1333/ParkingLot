@@ -289,12 +289,12 @@
   </update>
   <select id="getPilVipUser" resultType="cn.park.pojo.PilVipUser">
     SELECT * from pil_vip_user where 1=1
-    <if test="vid!=null and vid!=''">vid=#{vid}</if>
-    <if test="name!=null and name!=''">name=#{name}</if>
-    <if test="sex!=null and sex!=''">sex=#{sex}</if>
-    <if test="identification!=null and identification!=''">identification=#{identification}</if>
-    <if test="phone!=null and phone!=''">phone=#{phone}</if>
-    <if test="car_number!=null and car_number!=''">car_number=#{car_number}</if>
-    <if test="star!=null and star!=''">register_time BETWEEN #{star} and #{end}</if>
+    <if test="vid!=null">and vid=#{vid}</if>
+    <if test="name!=null">and name=#{name}</if>
+    <if test="sex!=null">and sex=#{sex}</if>
+    <if test="identification!=null">and identification=#{identification}</if>
+    <if test="phone!=null">and phone=#{phone}</if>
+    <if test="carNumber!=null">and car_number=#{carNumber}</if>
+    <if test="star!=null and end!=null">and register_time BETWEEN #{star} and #{end}</if>
   </select>
 </mapper>

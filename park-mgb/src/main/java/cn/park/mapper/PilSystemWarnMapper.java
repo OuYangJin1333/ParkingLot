@@ -34,8 +34,17 @@ public interface PilSystemWarnMapper {
 
     int updateByPrimaryKey(PilSystemWarn record);
 
+    /**
+     * 查询所有告警
+     * @return
+     */
     List<PilSystemWarn> AllPilSystemWarn();
 
+    /**
+     * 根据id查询告警详细信息
+     * @param id
+     * @return
+     */
     PilSystemWarn pilSystemWarn(@Param("id") Integer id);
 
     List<PilSystemWarn> AllPilSystemWarnfy(@Param("title")String title);
